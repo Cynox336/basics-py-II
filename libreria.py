@@ -11,8 +11,15 @@ y que retorne un diccionario con el título y el autor del libro.
 """
 
 # Escribe tu código aquí
-# Prueba la función con algunos valores
+def agregar_libro(titulo, autor):
+    return {
+        "titulo": titulo,
+        "autor": autor
+    }
 
+# Prueba la función con algunos valores
+libro_ejemplo = agregar_libro("Arthas: Rise of the Lich King", "Christie Golden")
+print(libro_ejemplo)
 
 """
 --- Ejercicio 2: Función para Listar Libros ---
@@ -21,7 +28,20 @@ que retorne una lista con los títulos de los libros.
 """
 
 # Escribe tu código aquí
+def listar_libros(libros):
+    titulos = []
+    for libro in libros:
+        titulos.append(libro["titulo"])
+    return titulos
+
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"},
+    {"titulo": "Stormrage", "autor": "Richard A. Knaak"}
+]
+
+print(listar_libros(biblioteca))
 
 
 """
@@ -31,8 +51,21 @@ que retorne el diccionario del libro que coincida con el título, o `None` si no
 """
 
 # Escribe tu código aquí
+def buscar_libro(libros, titulo):
+    for libro in libros:
+        if libro["titulo"] == titulo:
+            return libro
+    return None
 
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"},
+    {"titulo": "Stormrage", "autor": "Richard A. Knaak"}
+]
+
+print(buscar_libro(biblioteca, "Illidan"))
+print(buscar_libro(biblioteca, "Sylvanas"))
 
 """
 --- Ejercicio 4: Manejo de Errores ---
@@ -41,9 +74,30 @@ que intente quitar el libro con el título especificado. Si no se encuentra el l
 """
 
 # Escribe tu código aquí
+def quitar_libro(libros, titulo):
+    try:
+        libro_encontrado = None
+        for libro in libros:
+            if libro["titulo"] == titulo:
+                libro_encontrado = libro
+                break
+        
+        if libro_encontrado is None:
+            raise ValueError(f"El libro '{titulo}' no se encuentra en la lista.")
+        
+        libros.remove(libro_encontrado)
+        print(f"Libro '{titulo}' eliminado con éxito.")
+    except ValueError as error:
+        print(f"Error: {error}")
 
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"}
+]
 
+quitar_libro(biblioteca, "Illidan")
+print("Biblioteca actual:", biblioteca)
 
 """
 --- Ejercicio 5: Función que Retorna un Diccionario ---
@@ -52,9 +106,26 @@ que retorne un diccionario con la cantidad de libros por autor.
 """
 
 # Escribe tu código aquí
+def crear_inventario(libros):
+    inventario = {}
+    for libro in libros:
+        autor = libro["autor"]
+        if autor in inventario:
+            inventario[autor] += 1
+        else:
+            inventario[autor] = 1
+    return inventario
 
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Sylvanas", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"},
+    {"titulo": "Stormrage", "autor": "Richard A. Knaak"},
+    {"titulo": "Day of the Dragon", "autor": "Richard A. Knaak"}
+]
 
+print(crear_inventario(biblioteca))
 
 """
 --- Ejercicio 6: Función que Retorna una Lista ---
@@ -63,8 +134,23 @@ que retorne una lista con los títulos de los libros escritos por el autor espec
 """
 
 # Escribe tu código aquí
+def libros_por_autor(libros, autor):
+    titulos = []
+    for libro in libros:
+        if libro["autor"] == autor:
+            titulos.append(libro["titulo"])
+    return titulos
 
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Sylvanas", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"},
+    {"titulo": "Stormrage", "autor": "Richard A. Knaak"}
+]
+
+print(libros_por_autor(biblioteca, "Christie Golden"))
+print(libros_por_autor(biblioteca, "Aaron Rosenberg"))
 
 """
 --- Ejercicio 7: Función que Retorna un Booleano ---
@@ -73,6 +159,18 @@ que retorne `True` si el libro existe en la lista, y `False` en caso contrario.
 """
 
 # Escribe tu código aquí
+def existe_libro(libros, titulo):
+    for libro in libros:
+        if libro["titulo"] == titulo:
+            return True
+    return False
 
 # Prueba la función con algunos valores
+biblioteca = [
+    {"titulo": "Arthas: Rise of the Lich King", "autor": "Christie Golden"},
+    {"titulo": "Illidan", "autor": "William King"},
+    {"titulo": "Stormrage", "autor": "Richard A. Knaak"}
+]
 
+print(existe_libro(biblioteca, "Illidan"))
+print(existe_libro(biblioteca, "Vol'jin: Shadows of the Horde"))
